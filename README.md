@@ -20,6 +20,8 @@ It runs on your machine: no cloud account, no API key, no dependencies (Node 18.
 
 > ### See it in two minutes
 >
+> **Live demo:** [Open the deployed WisprOps site](https://54-252-252-150.sslip.io/) · **Video:** [Watch the two-minute demo on YouTube](https://youtu.be/gKW_CozMGKo)
+>
 > 1. **No install:** open the WisprOps website, scroll through one night, and press **▶ Play the demo**. It opens the console's demo sandbox and plays *The 3 AM config change*. You'll see "yes, do it" refused, the typed phrase refused, a say-back with the wrong value refused, the right one applied and verified, the repeat fixed while nobody is woken, and a dictated debrief turned into the postmortem.
 > 2. **With Wispr Flow:** on any scenario press **Try it yourself**, click the Talk box, hold your Wispr key and say the fix back: "approve fix one, db_pool back to 20". Then say 10 instead of 20, or type it.
 > 3. **No hands:** turn on **🙌 No hands** in the Talk panel and watch *No hands, start to finish*. The page is read aloud, dictations send themselves, and "open the audit log" moves the screen.
