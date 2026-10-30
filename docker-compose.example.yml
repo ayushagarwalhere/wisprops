@@ -1,0 +1,14 @@
+# WisprOps next to the services it watches. Copy to docker-compose.yml and adjust.
+# The first start creates /data/wisprops.config.json; add services from the console (by voice) or with
+#   docker exec -it wisprops node /app/bin/wisprops.js add api --health http://localhost:3000/healthz --compose api
+services:
+  wisprops:
+    build: .
+    container_name: wisprops
+    network_mode: host            # console stays on 127.0.0.1:7300 of this machine
+    restart: unless-stopped
+    volumes:
+      - ./wisprops-data:/data      # config, state, the console key
+      # - /var/run/docker.sock:/var/run/docker.sock   # only for the docker/compose presets (gives control of Docker)
+    environment:
+      - TZ=Asia/Kolkata            # so the morning handoff arrives at your 7 AM

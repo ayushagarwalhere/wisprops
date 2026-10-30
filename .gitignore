@@ -1,0 +1,13 @@
+node_modules/
+.wisprops/
+demo/runtime/
+demo/.wisprops/
+*.wisprops-tmp
+wisprops-data/
+.claude/
+site/node_modules/
+site/dist/
+video/build/
+video/out/
+video/build2/
+video/build3/

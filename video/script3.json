@@ -1,0 +1,559 @@
+{
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "ttsPrefix": "v3-",
+  "voices": {
+    "dev": {
+      "voice": "en-US-AndrewNeural",
+      "rate": "-4%"
+    },
+    "owl": {
+      "voice": "en-US-AvaNeural",
+      "rate": "+0%"
+    }
+  },
+  "regions": {
+    "FULL": [
+      0,
+      0,
+      1920
+    ],
+    "BOARD": [
+      0,
+      40,
+      1520
+    ],
+    "INCIDENTS": [
+      300,
+      330,
+      1240
+    ],
+    "TALK": [
+      1000,
+      110,
+      920
+    ],
+    "TALKLOW": [
+      1000,
+      545,
+      920
+    ],
+    "MODAL": [
+      440,
+      220,
+      920
+    ],
+    "PM": [
+      400,
+      110,
+      1260
+    ],
+    "ORDERS": [
+      0,
+      40,
+      1350
+    ],
+    "SERVICES": [
+      0,
+      330,
+      1400
+    ],
+    "HERO": [
+      0,
+      20,
+      1100
+    ],
+    "ADD": [
+      0,
+      330,
+      1100
+    ],
+    "PHONE": [
+      0,
+      20,
+      1000
+    ],
+    "PMODAL": [
+      520,
+      150,
+      880
+    ]
+  },
+  "lines": [
+    {
+      "id": "p1",
+      "act": "problem",
+      "who": "dev",
+      "shot": "bed",
+      "pre": 1.4,
+      "sfx": "buzz",
+      "card": "page",
+      "text": "3:12 AM. Checkout is down. Again.",
+      "say": "Three twelve A M. Checkout is down. Again."
+    },
+    {
+      "id": "p2",
+      "who": "dev",
+      "shot": "devDesk",
+      "card": "usual",
+      "text": "It's always something small. A config someone changed. A bad deploy. And I'm fixing production half asleep."
+    },
+    {
+      "id": "p3",
+      "who": "dev",
+      "shot": "devDesk",
+      "card": "night",
+      "text": "So I dig through dashboards, logs and last night's deploys. By the time I find it, it's four, and I'm typing fixes into production, half asleep."
+    },
+    {
+      "id": "c1",
+      "act": "cause",
+      "who": "owl",
+      "shot": "owl",
+      "pre": 0.6,
+      "appear": true,
+      "text": "The fix isn't what takes the hour. Finding the cause is."
+    },
+    {
+      "id": "c2",
+      "who": "owl",
+      "shot": "owl",
+      "card": "again",
+      "text": "And because nobody wrote down who changed what, the same fault wakes you again next week."
+    },
+    {
+      "id": "c3",
+      "who": "owl",
+      "shot": "owl",
+      "card": "yes",
+      "text": "And a bot that changes production on its own is scary. A fix should wait for your yes, and that yes should really be you."
+    },
+    {
+      "id": "s1",
+      "act": "solution",
+      "who": "owl",
+      "pre": 0.6,
+      "app": {
+        "clip": "01-board-healthy",
+        "speed": 0.9,
+        "zoom": [
+          [
+            0,
+            "FULL"
+          ],
+          [
+            3.5,
+            "BOARD"
+          ]
+        ],
+        "in": 0.5
+      },
+      "text": "I'm WisprOps, an on-call agent for the services you run yourself. This is a real demo service, healthy."
+    },
+    {
+      "id": "s2",
+      "who": "owl",
+      "app": {
+        "clip": "02-page",
+        "speed": 1.35,
+        "zoom": [
+          [
+            0,
+            "FULL"
+          ],
+          [
+            3,
+            "BOARD"
+          ],
+          [
+            7.5,
+            "TALK"
+          ]
+        ],
+        "in": 1
+      },
+      "text": "Someone breaks the config. I page you, and I've already found why: db_pool went from 20 to 0, changed by deploy-bot. One fix, already dry-run.",
+      "say": "Someone breaks the config. I page you, and I've already found why. D B pool went from twenty to zero, changed by deploy bot. One fix, already dry-run."
+    },
+    {
+      "id": "s2b",
+      "who": "dev",
+      "wispr": true,
+      "pre": 0.5,
+      "app": {
+        "clip": "03-what-happened",
+        "speed": 1,
+        "zoom": [
+          [
+            0,
+            "TALKLOW"
+          ]
+        ],
+        "in": 0.38
+      },
+      "text": "What happened?"
+    },
+    {
+      "id": "s2c",
+      "who": "owl",
+      "app": {
+        "clip": "03-what-happened",
+        "speed": 1,
+        "zoom": [
+          [
+            0,
+            "TALKLOW"
+          ],
+          [
+            2.6,
+            "TALK"
+          ]
+        ]
+      },
+      "text": "I answer with what I found: the change, who made it, and the one log line that matters."
+    },
+    {
+      "id": "s3",
+      "who": "owl",
+      "app": {
+        "clip": "04-typed-refused",
+        "speed": 0.75,
+        "zoom": [
+          [
+            0,
+            "TALKLOW"
+          ]
+        ],
+        "in": 1.1
+      },
+      "text": "Now watch. Typing “approve fix one” doesn't count. Fifteen keystrokes: refused.",
+      "fx": [
+        [
+          "keys",
+          0.9
+        ],
+        [
+          "nope",
+          5.3
+        ]
+      ]
+    },
+    {
+      "id": "s4",
+      "who": "dev",
+      "wispr": true,
+      "pre": 0.5,
+      "app": {
+        "clip": "05-approved",
+        "in": 0,
+        "speed": 1,
+        "zoom": [
+          [
+            0,
+            "TALKLOW"
+          ]
+        ]
+      },
+      "text": "Approve fix one, DB pool back to ten.",
+      "say": "Approve fix one, D B pool back to ten."
+    },
+    {
+      "id": "s4b",
+      "who": "owl",
+      "app": {
+        "clip": "05-approved",
+        "speed": 1,
+        "zoom": [
+          [
+            0,
+            "TALKLOW"
+          ]
+        ]
+      },
+      "text": "Wrong number. Fix one sets it to twenty, so nothing runs."
+    },
+    {
+      "id": "s4c",
+      "who": "dev",
+      "wispr": true,
+      "pre": 0.4,
+      "app": {
+        "clip": "05-approved",
+        "in": 8.89,
+        "speed": 1,
+        "zoom": [
+          [
+            0,
+            "TALKLOW"
+          ]
+        ]
+      },
+      "text": "Approve fix one, DB pool back to twenty.",
+      "say": "Approve fix one, D B pool back to twenty."
+    },
+    {
+      "id": "s5",
+      "who": "owl",
+      "app": {
+        "clip": "05-approved",
+        "speed": 1.6,
+        "zoom": [
+          [
+            0,
+            "TALKLOW"
+          ],
+          [
+            3.4,
+            "BOARD"
+          ]
+        ]
+      },
+      "text": "Said back right, in one Wispr Flow burst. Applied. Then I check it held: three healthy checks in a row. Recovered."
+    },
+    {
+      "id": "s6",
+      "who": "dev",
+      "wispr": true,
+      "app": {
+        "clip": "06-standing-order",
+        "in": 5.9,
+        "speed": 1,
+        "zoom": [
+          [
+            0,
+            "TALKLOW"
+          ]
+        ]
+      },
+      "text": "Grant standing order for seven days."
+    },
+    {
+      "id": "s7",
+      "who": "owl",
+      "app": {
+        "clip": "06-standing-order",
+        "speed": 1.9,
+        "zoom": [
+          [
+            0,
+            "TALKLOW"
+          ],
+          [
+            3,
+            "ORDERS"
+          ]
+        ]
+      },
+      "text": "Granted. Now I may fix this exact fault on my own: one service, one action, three uses, seven days."
+    },
+    {
+      "id": "s8",
+      "who": "owl",
+      "app": {
+        "clip": "07-repeat-no-page",
+        "speed": 1.6,
+        "zoom": [
+          [
+            0,
+            "FULL"
+          ],
+          [
+            4.5,
+            "INCIDENTS"
+          ],
+          [
+            8,
+            "TALK"
+          ]
+        ],
+        "in": 1
+      },
+      "text": "So the next night it breaks again. I fix it under that order, check it held, and nobody gets woken."
+    },
+    {
+      "id": "s9",
+      "who": "owl",
+      "app": {
+        "clip": "08-audit-record",
+        "speed": 1.3,
+        "zoom": [
+          [
+            0,
+            "FULL"
+          ],
+          [
+            4,
+            "MODAL"
+          ]
+        ],
+        "in": 2
+      },
+      "text": "Every change has an approval record: your exact words, how they arrived, and what was verified."
+    },
+    {
+      "id": "s10",
+      "who": "owl",
+      "app": {
+        "clip": "10-freeze",
+        "speed": 1.35,
+        "zoom": [
+          [
+            0,
+            "BOARD"
+          ],
+          [
+            3.6,
+            "TALK"
+          ]
+        ],
+        "in": 2
+      },
+      "text": "Anyone can freeze me with one word. Only a spoken yes unfreezes me."
+    },
+    {
+      "id": "s11",
+      "who": "owl",
+      "app": {
+        "clip": "11-nohands",
+        "speed": 1.25,
+        "zoom": [
+          [
+            0,
+            "TALK"
+          ],
+          [
+            2.4,
+            "FULL"
+          ]
+        ],
+        "in": 1.8
+      },
+      "text": "Turn on No hands, and you can run the whole console by voice."
+    },
+    {
+      "id": "s13",
+      "who": "owl",
+      "app": {
+        "clip": "13-postmortem",
+        "in": 5,
+        "speed": 1.2,
+        "zoom": [
+          [
+            0,
+            "TALKLOW"
+          ],
+          [
+            4.2,
+            "PMODAL"
+          ]
+        ]
+      },
+      "text": "In the morning, you just talk it through. One spoken debrief becomes the postmortem: the cause, owners, and a new rule."
+    },
+    {
+      "id": "s14",
+      "who": "owl",
+      "terminal": "judge",
+      "text": "Want proof? wisprops judge runs one whole incident in your terminal and checks every safety rule."
+    },
+    {
+      "id": "h1",
+      "act": "howto",
+      "who": "owl",
+      "pre": 0.6,
+      "terminal": "setup",
+      "text": "Here's how to use it. Install it with npm, then run wisprops start. No cloud, no API key, no dependencies."
+    },
+    {
+      "id": "h2",
+      "who": "owl",
+      "app": {
+        "clip": "14-first-run",
+        "in": 2.4,
+        "speed": 1,
+        "zoom": [
+          [
+            0,
+            "HERO"
+          ]
+        ]
+      },
+      "text": "Open the console, hold your Wispr Flow key, and describe your service."
+    },
+    {
+      "id": "h3",
+      "who": "dev",
+      "wispr": true,
+      "pre": 0.4,
+      "app": {
+        "clip": "14-first-run",
+        "in": 7.31,
+        "speed": 1,
+        "zoom": [
+          [
+            0,
+            "HERO"
+          ],
+          [
+            1.5,
+            "ADD"
+          ]
+        ]
+      },
+      "text": "Watch my shop api, health check at localhost 4000 slash healthz.",
+      "say": "Watch my shop A P I, health check at localhost four thousand slash health Z."
+    },
+    {
+      "id": "h4",
+      "who": "owl",
+      "app": {
+        "clip": "14-first-run",
+        "speed": 1.4,
+        "zoom": [
+          [
+            0,
+            "ADD"
+          ],
+          [
+            3.9,
+            "HERO"
+          ]
+        ]
+      },
+      "text": "I heard it, and I'm already watching it. That's the whole setup."
+    },
+    {
+      "id": "h5",
+      "who": "owl",
+      "app": {
+        "clip": "15-phone",
+        "speed": 1.2,
+        "zoom": [
+          [
+            0,
+            "PHONE"
+          ]
+        ],
+        "in": 2
+      },
+      "text": "Then add your phone in Settings. I'll make you a private ntfy topic, so a page reaches you in bed."
+    },
+    {
+      "id": "h6",
+      "who": "owl",
+      "terminal": "doctor",
+      "text": "Run doctor once. It checks every health check, config file and command before 3 AM does."
+    },
+    {
+      "id": "e1",
+      "act": "close",
+      "who": "owl",
+      "shot": "end",
+      "pre": 0.8,
+      "card": "end",
+      "post": 1.7,
+      "text": "WisprOps. Sleep. I'm on call."
+    }
+  ]
+}

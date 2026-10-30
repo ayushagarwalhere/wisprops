@@ -1,0 +1,26 @@
+{
+  "name": "wisprops-site",
+  "private": true,
+  "version": "1.3.0",
+  "type": "module",
+  "description": "The WisprOps website: a 3D scroll story of one night on call.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@gsap/react": "2.1.2",
+    "@react-three/drei": "10.0.6",
+    "@react-three/fiber": "9.1.2",
+    "gsap": "3.13.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "three": "0.173.0",
+    "zustand": "5.0.3"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "4.4.1",
+    "vite": "6.3.5"
+  }
+}

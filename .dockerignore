@@ -1,0 +1,9 @@
+node_modules
+.git
+.claude
+**/.wisprops
+demo/runtime
+wisprops.config.json
+wisprops-data
+site
+video

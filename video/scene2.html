@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>WisprOps video · landscape</title>
+<style>
+  :root { --ink: #eaf1ff; --muted: #9fb3d9; --panel: rgba(9, 16, 40, .93); --blue: #6ea8ff; --green: #5ef0b4; --red: #ff6b7a; --amber: #ffc861; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #070c1f; font-family: "Segoe UI", "Segoe UI Variable", system-ui, sans-serif; color: var(--ink); }
+  #c { position: absolute; inset: 0; width: 1920px; height: 1080px; }
+  #bg { position: absolute; inset: 0; width: 1920px; height: 1080px; display: none; }
+  #veil { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 45%, transparent 60%, rgba(3, 6, 18, .6) 100%); }
+  #fade { position: absolute; inset: 0; background: #03060f; opacity: 0; }
+  .mono { font-family: "Cascadia Mono", "Cascadia Code", Consolas, monospace; }
+
+  /* the real console, framed */
+  /* a clean app window floating on the backdrop */
+  #win { position: absolute; left: 210px; top: 24px; width: 1500px; padding: 0 14px 14px; display: none; border-radius: 20px; overflow: hidden;
+    background: linear-gradient(180deg, #151c3f, #0e1433 60px); border: 1px solid rgba(255, 255, 255, .12);
+    box-shadow: 0 60px 130px rgba(2, 4, 18, .7), 0 0 0 1px rgba(0, 0, 0, .35), inset 0 1px 0 rgba(255, 255, 255, .1); }
+  #win .bar { height: 36px; display: flex; align-items: center; gap: 9px; padding: 0 6px; font-size: 17px; color: #dbe5ff; text-shadow: 0 1px 6px rgba(0,0,0,.5); }
+  #win .dot { width: 12px; height: 12px; border-radius: 50%; background: #ff5f57; }
+  #win .dot + .dot { background: #febc2e; } #win .dot + .dot + .dot { background: #28c840; }
+  #win .bar .title { margin-left: 14px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; font-size: 15px; }
+  #win .bar .title b { color: var(--blue); }
+  #win .bar .live { margin-left: auto; color: var(--green); font-size: 15px; letter-spacing: .1em; }
+  #view { position: relative; width: 1472px; height: 828px; overflow: hidden; background: #0a0f24; border-radius: 14px; box-shadow: 0 0 0 1px rgba(255, 255, 255, .12), 0 10px 30px rgba(0, 0, 0, .45); }
+  #shot { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+  #term { position: absolute; inset: 0; display: none; padding: 34px 40px; font-size: 25px; line-height: 1.55; color: #cfe0ff; white-space: pre-wrap; background: #050913; }
+  #term .p { color: var(--green); } #term .ok { color: var(--green); } #term .c { color: var(--muted); } #term .b { color: #fff; font-weight: 700; }
+  .caret { display: inline-block; width: 12px; height: 26px; background: var(--ink); vertical-align: -4px; margin-left: 3px; }
+
+  /* the speaker, picture in picture */
+  #pipwrap { position: absolute; left: 30px; top: 742px; width: 168px; display: none; text-align: center; }
+  #pip { width: 168px; height: 168px; border-radius: 50%; border: 2px solid rgba(160, 200, 255, .7); box-shadow: 0 14px 40px rgba(2, 4, 18, .6), 0 0 22px rgba(110,168,255,.3);
+    background: radial-gradient(circle at 40% 30%, #2b3d86, #18235a 65%, #10173f); }
+  #pipwrap.dev #pip { border-color: var(--amber); box-shadow: 0 14px 40px rgba(2, 4, 18, .6), 0 0 22px rgba(255,200,97,.3); }
+  #pipname { margin-top: 8px; font-size: 15px; letter-spacing: .2em; text-transform: uppercase; font-weight: 700; color: var(--blue); text-shadow: 0 2px 8px #000; }
+  #pipwrap.dev #pipname { color: var(--amber); }
+
+  #act { position: absolute; left: 56px; top: 44px; display: flex; gap: 14px; align-items: center; font-size: 22px; letter-spacing: .22em; text-transform: uppercase; font-weight: 600; text-shadow: 0 2px 10px #000; }
+  #act .n { color: var(--blue); } #act .bar { width: 40px; height: 3px; background: var(--blue); }
+  #brand { position: absolute; right: 56px; top: 40px; display: flex; gap: 12px; align-items: center; font-size: 26px; font-weight: 600; opacity: .92; text-shadow: 0 2px 10px #000; }
+  #brand svg { width: 34px; height: 34px; }
+
+  #cap { position: absolute; left: 300px; right: 300px; bottom: 34px; text-align: center; font-size: 40px; line-height: 1.3; font-weight: 600;
+    text-shadow: 0 3px 0 rgba(0,0,0,.55), 0 0 22px rgba(0,0,0,.85), 0 0 4px rgba(0,0,0,.9); }
+  #cap .who { font-size: 21px; letter-spacing: .22em; text-transform: uppercase; color: var(--amber); font-weight: 800; margin-right: 14px; vertical-align: 5px; }
+  #cap .who.owl { color: var(--blue); }
+
+  #card { position: absolute; top: 250px; width: 760px; }
+  .card { background: linear-gradient(160deg, rgba(40, 60, 130, .45), rgba(10, 16, 45, .6)); border: 2px solid var(--blue); border-radius: 24px; padding: 36px 40px;
+    backdrop-filter: blur(18px) saturate(150%); box-shadow: 0 0 40px rgba(110, 168, 255, .3), inset 0 1px 0 rgba(255, 255, 255, .25); }
+  .card.green { border-color: var(--green); box-shadow: 0 0 40px rgba(94, 240, 180, .35); }
+  .card.red { border-color: var(--red); box-shadow: 0 0 40px rgba(255, 107, 122, .35); }
+  .card.amber { border-color: var(--amber); box-shadow: 0 0 40px rgba(255, 200, 97, .3); }
+  .k { font-size: 22px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  .t { font-size: 50px; font-weight: 700; margin: 12px 0 8px; line-height: 1.1; }
+  .s { font-size: 28px; color: #cfdcf7; line-height: 1.4; }
+  .row { display: flex; align-items: center; gap: 16px; font-size: 28px; padding: 12px 0; border-top: 1px solid rgba(159,179,217,.18); }
+  .row:first-of-type { border-top: 0; }
+  .row .tm { color: var(--muted); width: 90px; flex: none; }
+  .ok { color: var(--green); font-weight: 700; } .no { color: var(--red); font-weight: 700; } .am { color: var(--amber); font-weight: 700; } .bl { color: var(--blue); font-weight: 700; }
+  .pills { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+  .pill { font-size: 24px; padding: 8px 18px; border-radius: 999px; border: 2px solid rgba(159,179,217,.5); color: #d9e5ff; }
+  .pill.red { border-color: var(--red); color: var(--red); }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px; }
+  .tile { border: 2px solid rgba(159,179,217,.35); border-radius: 14px; padding: 16px 18px; font-size: 27px; }
+  .tile small { display: block; color: var(--muted); font-size: 21px; margin-top: 4px; }
+  .big { font-size: 92px; font-weight: 800; letter-spacing: -.02em; line-height: 1; }
+</style>
+</head>
+<body>
+  <canvas id="c" width="1920" height="1080"></canvas>
+  <canvas id="bg" width="1920" height="1080"></canvas>
+  <div id="win"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="title" id="wintitle"></span><span class="live">● real console · live demo service</span></div>
+    <div id="view"><img id="shot" alt="" /><div id="term" class="mono"></div></div></div>
+  <div id="pipwrap"><canvas id="pip" width="168" height="168"></canvas><div id="pipname"></div></div>
+  <div id="veil"></div>
+  <div id="act"></div>
+  <div id="brand"></div>
+  <div id="card"></div>
+  <div id="cap"></div>
+  <div id="fade"></div>
+  <script type="importmap">{ "imports": { "three": "./lib/three.module.js", "three/addons/": "./lib/jsm/" } }</script>
+  <script type="module" src="scene2.js"></script>
+</body>
+</html>
